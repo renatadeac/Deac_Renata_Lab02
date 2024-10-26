@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Deac_Renata_Lab02.Data;
 using Deac_Renata_Lab02.Models;
 
-namespace Deac_Renata_Lab02.Pages.Books
+namespace Deac_Renata_Lab02.Pages.Authors
 {
     public class CreateModel : PageModel
     {
@@ -21,26 +21,21 @@ namespace Deac_Renata_Lab02.Pages.Books
 
         public IActionResult OnGet()
         {
-            ViewData["PublisherID"] = new SelectList(_context.Set<Publisher>(), "ID",
-"PublisherName");
-            ViewData["AuthorID"] = new SelectList(_context.Set<Author>(), "ID", "LastName");
             return Page();
         }
 
         [BindProperty]
-        public Book Book { get; set; } = default!;
+        public Author Author { get; set; } = default!;
 
         // For more information, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
             {
-                ViewData["PublisherID"] = new SelectList(_context.Set<Publisher>(), "ID", "PublisherName");
-                ViewData["AuthorID"] = new SelectList(_context.Set<Author>(), "ID", "LastName");
                 return Page();
             }
 
-            _context.Book.Add(Book);
+            _context.Author.Add(Author);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");
