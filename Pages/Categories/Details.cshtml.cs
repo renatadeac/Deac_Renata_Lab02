@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Deac_Renata_Lab02.Data;
 using Deac_Renata_Lab02.Models;
 
-namespace Deac_Renata_Lab02.Pages.Books
+namespace Deac_Renata_Lab02.Pages.Categories
 {
     public class DetailsModel : PageModel
     {
@@ -19,7 +19,7 @@ namespace Deac_Renata_Lab02.Pages.Books
             _context = context;
         }
 
-        public Book Book { get; set; } = default!;
+        public Category Category { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -28,18 +28,15 @@ namespace Deac_Renata_Lab02.Pages.Books
                 return NotFound();
             }
 
-            Book = await _context.Book
-               .Include(b => b.Author) // Încarcă autorul asociat
-               .Include(b => b.BookCategories)
-                   .ThenInclude(bc => bc.Category) // Încarcă categoriile asociate
-               .AsNoTracking()
-               .FirstOrDefaultAsync(m => m.ID == id);
-
-            if (Book == null)
+            var category = await _context.Category.FirstOrDefaultAsync(m => m.ID == id);
+            if (category == null)
             {
                 return NotFound();
             }
-
+            else
+            {
+                Category = category;
+            }
             return Page();
         }
     }
