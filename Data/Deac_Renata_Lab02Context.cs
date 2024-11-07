@@ -18,5 +18,7 @@ namespace Deac_Renata_Lab02.Data
         public DbSet<Deac_Renata_Lab02.Models.Publisher> Publisher { get; set; } = default!;
         public DbSet<Deac_Renata_Lab02.Models.Author> Author { get; set; } = default!;
         public DbSet<Deac_Renata_Lab02.Models.Category> Category { get; set; } = default!;
+        public DbSet<Deac_Renata_Lab02.Models.Member> Member { get; set; } = default!;
+        public DbSet<Deac_Renata_Lab02.Models.Borrowing> Borrowing { get; set; } = default!;
     }
 }
