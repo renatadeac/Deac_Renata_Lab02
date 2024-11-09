@@ -11,23 +11,28 @@
     <h4>Borrowing</h4>
     <hr />
     <dl class="row">
+        <!-- Afișează Numele Membrului -->
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Borrowing.Member)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Borrowing.Member.ID)
+            @Model.Borrowing.Member.FirstName <!-- Numele membrului -->
         </dd>
+
+        <!-- Afișează Detaliile Cărții -->
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Borrowing.Book)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Borrowing.Book.ID)
+            @Model.Borrowing.Book.Title <!-- Titlul cărții -->
         </dd>
+
+        <!-- Afișează Data Returnării -->
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Borrowing.ReturnDate)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Borrowing.ReturnDate)
+            @Model.Borrowing.ReturnDate
         </dd>
     </dl>
 </div>

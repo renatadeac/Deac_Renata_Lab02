@@ -30,16 +30,45 @@ namespace Deac_Renata_Lab02.Pages.Borrowings
                 return NotFound();
             }
 
-            var borrowing =  await _context.Borrowing.FirstOrDefaultAsync(m => m.ID == id);
+            var borrowing = await _context.Borrowing
+                .Include(b => b.Member)  // Include datele membrului
+                .Include(b => b.Book)    // Include datele cărții
+                .FirstOrDefaultAsync(m => m.ID == id);
+
             if (borrowing == null)
             {
                 return NotFound();
             }
+
             Borrowing = borrowing;
-           ViewData["BookID"] = new SelectList(_context.Book, "ID", "ID");
-           ViewData["MemberID"] = new SelectList(_context.Member, "ID", "ID");
+
+            // Populează lista de membri cu numele complet
+            ViewData["MemberID"] = new SelectList(
+                await _context.Member
+                    .Select(m => new {
+                        ID = m.ID,
+                        FullName = m.FirstName + " " + m.LastName
+                    })
+                    .ToListAsync(),
+                "ID",
+                "FullName"
+            );
+
+            // Populează lista de cărți cu titluri
+            ViewData["BookID"] = new SelectList(
+                await _context.Book
+                    .Select(b => new {
+                        ID = b.ID,
+                        Title = b.Title
+                    })
+                    .ToListAsync(),
+                "ID",
+                "Title"
+            );
+
             return Page();
         }
+
 
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more information, see https://aka.ms/RazorPagesCRUD.
