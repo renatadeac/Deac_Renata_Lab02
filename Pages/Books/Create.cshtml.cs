@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Deac_Renata_Lab02.Data;
 using Deac_Renata_Lab02.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Deac_Renata_Lab02.Pages.Books
 {
+    [Authorize(Roles = "Admin")]
     public class CreateModel : BookCategoriesPageModel
     {
         private readonly Deac_Renata_Lab02.Data.Deac_Renata_Lab02Context _context;

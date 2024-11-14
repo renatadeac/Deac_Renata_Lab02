@@ -8,12 +8,17 @@ namespace Deac_Renata_Lab02.Models
         public int ID { get; set; }
 
         [Display(Name = "Book Title")]
+        [StringLength(150, MinimumLength = 3)]
         public string Title { get; set; }
 
+
         [Column(TypeName = "decimal(6, 2)")]
+        [Range(0.01, 500)]
         public decimal Price { get; set; }
 
         [DataType(DataType.Date)]
+
+
         public DateTime PublishingDate { get; set; }
         public int? PublisherID { get; set; }
 
